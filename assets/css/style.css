@@ -132,6 +132,19 @@ body {
 	transform: translateY(-8px);
 }
 
+@media (hover: none) {
+	.card-wrapper.is-touch-active .animated-border-box-glow,
+	.card-wrapper.is-touch-active .animated-border-box {
+		opacity: 1;
+	}
+
+	.card-wrapper.is-touch-active > .relative.z-10,
+	.card-wrapper.is-touch-active .project-card,
+	.card-wrapper.is-touch-active .text-center {
+		transform: translateY(-8px);
+	}
+}
+
 /* ===== Imagens de Fundo ===== */
 .cover-image {
 	background-image: url(/img/cover-background.jpg);

@@ -91,4 +91,45 @@ $(document).ready(function() {
 
 	$(window).on('scroll', fadeInOnScroll);
 	fadeInOnScroll();
+
+	/* ===== Suporte ao toque nos cards ===== */
+	$(document).on('touchstart', '.card-wrapper', function() {
+		const $card = $(this);
+
+		$('.card-wrapper.is-touch-active').not($card).each(function() {
+			const timeoutId = $(this).data('touchTimeout');
+			if (timeoutId) {
+				clearTimeout(timeoutId);
+			}
+			$(this).removeClass('is-touch-active').removeData('touchTimeout');
+		});
+
+		const existingTimeout = $card.data('touchTimeout');
+		if (existingTimeout) {
+			clearTimeout(existingTimeout);
+		}
+
+		$card.addClass('is-touch-active');
+
+		const timeoutId = window.setTimeout(() => {
+			$card.removeClass('is-touch-active').removeData('touchTimeout');
+		}, 1500);
+
+		$card.data('touchTimeout', timeoutId);
+	});
+
+	$(document).on('touchend touchcancel', '.card-wrapper', function() {
+		const $card = $(this);
+		const existingTimeout = $card.data('touchTimeout');
+
+		if (existingTimeout) {
+			clearTimeout(existingTimeout);
+		}
+
+		const timeoutId = window.setTimeout(() => {
+			$card.removeClass('is-touch-active').removeData('touchTimeout');
+		}, 300);
+
+		$card.data('touchTimeout', timeoutId);
+	});
 });
